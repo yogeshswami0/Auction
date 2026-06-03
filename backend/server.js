@@ -33,9 +33,26 @@ app.use(express.json());
 
 // Connect to MongoDB Atlas (fallback to local if URI not provided)
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/auction-pro';
+
+const maskedURI = MONGO_URI.replace(/\/\/([^:]+):([^@]+)@/, '//***:***@');
+console.log(`Attempting to connect to MongoDB: ${maskedURI}`);
+
+if (MONGO_URI.includes('<password>')) {
+  console.warn('⚠️ [WARNING] Your MONGO_URI contains the literal "<password>" placeholder. You must replace it with your actual password in Render environment variables.');
+} else if (MONGO_URI.match(/<[^>]+>/)) {
+  console.warn('⚠️ [WARNING] Your MONGO_URI appears to contain angle brackets "<" and ">". Ensure you have removed the brackets and only supplied your actual password.');
+}
+
+if (MONGO_URI.includes('127.0.0.1') || MONGO_URI.includes('localhost')) {
+  console.warn('⚠️ [WARNING] Connecting to a local database. If this is running on Render, database operations will time out.');
+}
+
 mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB successfully connected.'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .catch(err => {
+    console.error('❌ MongoDB connection error:', err);
+    console.error('Make sure your MongoDB Atlas username, password, database name, and IP access list (0.0.0.0/0) are correctly configured.');
+  });
 
 // Register API Routes
 app.use('/api/auth', authRoutes);
