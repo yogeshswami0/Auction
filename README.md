@@ -30,19 +30,19 @@ The user interface uses a hardware-accelerated 3D perspective design system buil
 
 ```mermaid
 graph TD
-    subgraph Client App (React + Vite)
+    subgraph client ["Client App (React + Vite)"]
         UI[3D Glassmorphic Interface]
         SC[Socket.io Client Context]
         AC[Auth Context]
     end
 
-    subgraph Real-Time Engine (Node + Express)
+    subgraph engine ["Real-Time Engine (Node + Express)"]
         Srv[Socket.io WS Server]
         API[Express REST APIs]
         AI[Gemini 2.5 flash/pro Engine]
     end
 
-    subgraph Data Store
+    subgraph datastore ["Data Store"]
         DB[(MongoDB Database)]
     end
 
