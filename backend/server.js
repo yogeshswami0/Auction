@@ -293,8 +293,14 @@ io.on('connection', (socket) => {
 
   // 5. admin_mark_sold / PLAYER_SOLD: Complete transaction and transfer player to owner squad
   const markSoldHandler = async () => {
-    // Must be in ready_to_close or closing sequence
+    console.log('--- ADMIN DECLARE SOLD TRIGGERED ---');
+    console.log('Active Room Status:', roomState.status);
+    console.log('Active Player ID:', roomState.activePlayer?._id);
+    console.log('Current High Bidder ID:', roomState.currentBidderId);
+    console.log('Current Bid Amount:', roomState.currentBid);
+
     if (!roomState.activePlayer) {
+      console.warn('⚠️ [WARNING] Declare Sold failed: No active player in room state.');
       socket.emit('error', { message: 'No active player to sell.' });
       return;
     }
@@ -304,59 +310,79 @@ io.on('connection', (socket) => {
       const winnerId = roomState.currentBidderId;
       const closingPrice = roomState.currentBid;
 
+      console.log(`Searching database for player ID: ${playerId}...`);
       const player = await Player.findById(playerId);
       if (!player) {
+        console.error(`❌ [ERROR] Player not found in database for ID: ${playerId}`);
         socket.emit('error', { message: 'Player not found.' });
         return;
       }
+      console.log(`Found player in database: ${player.name}. Current status: ${player.status}`);
 
       if (!winnerId) {
-        // No bids placed: Mark player as Unsold
+        console.log(`No bids placed for ${player.name}. Marking as UNSOLD.`);
         player.status = 'Unsold';
         player.currentBid = 0;
         player.currentBidder = null;
         player.currentOwner = null;
+        
+        console.log('Saving unsold player state to database...');
         await player.save();
+        console.log('Unsold player state successfully saved.');
 
         roomState.status = 'unsold';
-        roomState.activePlayer = player; // Update the in-memory roomState with final status!
+        roomState.activePlayer = player;
         
-        // Find next player in the queue for auto-advance staging
+        console.log('Fetching next player in queue...');
         const nextPlayerObj = await Player.findOne({ status: { $in: ['Approved', 'Available'] } });
+        console.log('Next player fetched:', nextPlayerObj?.name || 'None');
 
         io.emit('auction_ended', { status: 'Unsold', player, nextPlayer: nextPlayerObj });
         io.emit('PLAYER_SOLD', { status: 'Unsold', player, nextPlayer: nextPlayerObj });
-        io.emit('room_state', roomState); // Synchronize room state for all clients
+        io.emit('room_state', roomState);
         
         console.log(`Player ${player.name} ended as UNSOLD.`);
         return;
       }
 
-      // Deduct budget & push to squad
+      console.log(`Bids placed. Loading franchise owner ID: ${winnerId}...`);
       const winningOwner = await User.findById(winnerId);
       if (!winningOwner) {
+        console.error(`❌ [ERROR] Winning franchise owner user not found for ID: ${winnerId}`);
         socket.emit('error', { message: 'Winning franchise owner not found.' });
         return;
       }
+      console.log(`Found winning franchise owner: ${winningOwner.username} (Team: ${winningOwner.teamName})`);
+      console.log(`Franchise budget: remaining = ₹${winningOwner.remainingBudget}, price = ₹${closingPrice}`);
+
       if (winningOwner.remainingBudget < closingPrice) {
+        console.error(`❌ [ERROR] Budget check failed: remaining budget ${winningOwner.remainingBudget} is less than closing price ${closingPrice}`);
         socket.emit('error', { message: 'Winner budget check failed.' });
         return;
       }
 
+      console.log('Deducting price from budget and adding player to owner squad...');
       winningOwner.remainingBudget -= closingPrice;
       winningOwner.squad.push(playerId);
+      
+      console.log('Saving winning franchise owner state...');
       await winningOwner.save();
+      console.log('Winning franchise owner successfully saved.');
 
+      console.log(`Updating player status to "Sold", owner to ${winningOwner.teamName}...`);
       player.status = 'Sold';
       player.finalSalePrice = closingPrice;
       player.currentBid = closingPrice;
       player.currentBidder = winnerId;
-      player.currentOwner = winnerId; // Assign currentOwner: highestBidderID
+      player.currentOwner = winnerId;
+      
+      console.log('Saving sold player state to database...');
       await player.save();
+      console.log('Player status successfully saved as "Sold" in database.');
 
-      // Release headlines asynchronously using Gemini AI to avoid blocking socket thread
       let headlines = [];
       try {
+        console.log('Generating AI headlines for press release wire...');
         headlines = await getPressReleaseHeadlines({
           playerName: player.name,
           role: player.position,
@@ -364,16 +390,18 @@ io.on('connection', (socket) => {
           closingPrice,
           winningTeam: winningOwner.teamName,
         });
+        console.log('AI headlines generated successfully.');
       } catch (aiErr) {
-        console.error('Error generating AI headlines ticker:', aiErr);
+        console.error('⚠️ [WARNING] Error generating AI headlines ticker:', aiErr);
         headlines = [`📰 ${player.name} Sold to ${winningOwner.teamName} for ₹${(closingPrice/10000000).toFixed(2)} Cr!`];
       }
 
       roomState.status = 'sold';
-      roomState.activePlayer = player; // Update the in-memory roomState with final status!
+      roomState.activePlayer = player;
 
-      // Find next player in the queue for auto-advance staging
+      console.log('Fetching next player in queue...');
       const nextPlayerObj = await Player.findOne({ status: { $in: ['Approved', 'Available'] } });
+      console.log('Next player fetched:', nextPlayerObj?.name || 'None');
 
       const completionPayload = { 
         status: 'Sold', 
@@ -384,12 +412,12 @@ io.on('connection', (socket) => {
       };
 
       io.emit('auction_ended', completionPayload);
-      io.emit('PLAYER_SOLD', completionPayload); // Duplicate broadcast matching requirements
-      io.emit('room_state', roomState); // Synchronize room state for all clients
+      io.emit('PLAYER_SOLD', completionPayload);
+      io.emit('room_state', roomState);
 
       console.log(`TRANSACTION COMPLETE: ${player.name} sold to ${winningOwner.teamName} for ₹${closingPrice}`);
     } catch (err) {
-      console.error('Roster transaction error:', err);
+      console.error('❌ [CRITICAL ERROR] Roster transaction error:', err);
       socket.emit('error', { message: 'Database transaction failed. Bid rollback completed.' });
     }
   };
