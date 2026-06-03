@@ -187,3 +187,4 @@ The backend includes tools for checking system state:
 
 ## 🔒 License & Configuration
 This project is open-source. For configuration tweaks, customize database indexes or budget thresholds directly in the [server.js](file:///c:/Users/Yogesh%20Swami/OneDrive/Desktop/live/Live-Auction-Deploy1/backend/server.js) controller.
+Developer : YOGESH SWAMI
