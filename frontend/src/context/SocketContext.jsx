@@ -24,9 +24,11 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       // Connect to the Socket.io server
-      const socketUrl = window.location.port === '3000'
-        ? `${window.location.protocol}//${window.location.hostname}:5000`
-        : window.location.origin;
+      const socketUrl = import.meta.env.VITE_API_URL || (
+        window.location.port === '3000'
+          ? `${window.location.protocol}//${window.location.hostname}:5000`
+          : window.location.origin
+      );
         
       const newSocket = io(socketUrl, {
         transports: ['websocket', 'polling'],
