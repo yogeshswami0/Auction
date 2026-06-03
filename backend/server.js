@@ -362,6 +362,15 @@ io.on('connection', (socket) => {
       }
 
       console.log('Deducting price from budget and adding player to owner squad...');
+      if (!winningOwner.squad) {
+        console.log('Initializing empty squad array for franchise owner...');
+        winningOwner.squad = [];
+      }
+      if (typeof winningOwner.remainingBudget !== 'number') {
+        console.warn('⚠️ [WARNING] franchise remainingBudget is not a number. Initializing to totalBudget.');
+        winningOwner.remainingBudget = typeof winningOwner.totalBudget === 'number' ? winningOwner.totalBudget : 100000000;
+      }
+
       winningOwner.remainingBudget -= closingPrice;
       winningOwner.squad.push(playerId);
       
