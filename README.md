@@ -166,8 +166,6 @@ npm run dev
 *   Application compiles and runs on: **`http://localhost:3000`**
 
 ---
-## official platform website 
-(https://auction-pro-frontend.onrender.com)
 
 ## 🛡️ Integration Tests & Seeding
 
@@ -184,6 +182,11 @@ The backend includes tools for checking system state:
     node tests/verify.js
     ```
     Runs automated schema and match scheduling timeline validation tests.
+
+---
+
+## official platform website 
+(https://auction-pro-frontend.onrender.com)
 
 ---
 
