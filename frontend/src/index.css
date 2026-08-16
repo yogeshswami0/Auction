@@ -4,28 +4,39 @@
 
 @layer base {
   body {
-    background-color: #000000;
-    color: #fafafa;
+    background-color: #ffffff;
+    color: #171717;
     font-family: 'Inter', 'Outfit', sans-serif;
+  }
+
+  /* Form components light theme override */
+  input, select, textarea {
+    background-color: #ffffff !important;
+    border: 1px solid #d4d4d4 !important;
+    color: #171717 !important;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: #a3a3a3 !important;
   }
 }
 
 @layer utilities {
-  /* Premium Glassmorphism */
+  /* Premium Glassmorphism - Light Mode */
   .glass-card {
-    background: rgba(10, 10, 10, 0.60);
+    background: rgba(255, 255, 255, 0.70) !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.06) !important;
   }
 
   .glass-nav {
-    background: rgba(10, 10, 10, 0.70);
+    background: rgba(255, 255, 255, 0.80) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
   }
 
   /* Micro-animations */
@@ -35,8 +46,8 @@
 
   .hover-glow:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.15);
   }
 
   /* Dynamic 3D Perspective and Transitions */
@@ -158,4 +169,54 @@
   .animate-flare {
     animation: critical-flare 0.5s ease-in-out infinite;
   }
+}
+
+/* Global Text and Component Overrides for Light Mode */
+.text-white {
+  color: #171717 !important;
+}
+
+/* Retain white text for buttons, badges, status bubbles, and alerts */
+button,
+button *,
+a[class*="bg-indigo-"],
+a[class*="bg-gray-"],
+span[class*="bg-indigo-"],
+span[class*="bg-red-"],
+span[class*="bg-emerald-"],
+span[class*="bg-amber-"],
+.bg-indigo-600,
+.bg-indigo-600 * {
+  color: #ffffff !important;
+}
+
+/* Nav links styling */
+.glass-nav a {
+  color: #404040 !important;
+}
+.glass-nav a:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  color: #0a0a0a !important;
+}
+.glass-nav a[class*="bg-indigo-500\/20"] {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: #171717 !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+.glass-nav a[class*="bg-indigo-500\/20"] * {
+  color: #171717 !important;
+}
+.glass-nav p, .glass-nav span {
+  color: #262626 !important;
+}
+
+/* Alert notifications and banners reset */
+div[class*="bg-red-500/10"],
+div[class*="bg-red-500\/10"] {
+  background-color: rgba(239, 68, 68, 0.08) !important;
+  border-color: rgba(239, 68, 68, 0.15) !important;
+}
+div[class*="bg-red-500/10"] *,
+div[class*="bg-red-500\/10"] * {
+  color: #ef4444 !important;
 }
