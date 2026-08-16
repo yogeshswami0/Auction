@@ -5,6 +5,7 @@ import { SocketProvider } from './context/SocketContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import RulesChatbot from './components/RulesChatbot';
+import Background3DAnimation from './components/Background3DAnimation';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -19,10 +20,9 @@ function App() {
     <Router>
       <AuthProvider>
         <SocketProvider>
-          <div className="relative min-h-screen text-gray-900 flex flex-col bg-brand-light">
-            {/* Background Glow Elements for Premium Visual Experience */}
-            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none z-0" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[55%] h-[55%] rounded-full bg-purple-500/10 blur-[150px] pointer-events-none z-0" />
+          <div className="relative min-h-screen text-gray-900 flex flex-col bg-[#fafafa]">
+            {/* Background live bidding 3D projected animation */}
+            <Background3DAnimation />
 
             <Navbar />
             <RulesChatbot />
