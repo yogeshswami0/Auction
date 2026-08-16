@@ -234,7 +234,7 @@ const RulesChatbot = () => {
           </div>
 
           {/* Tab Content Panels */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 ">
             
             {/* Panel 1: Ask Assistant Chatbot */}
             {activeTab === 'chat' && (
@@ -246,7 +246,7 @@ const RulesChatbot = () => {
                       className={`p-3 rounded-xl max-w-[85%] text-xs leading-relaxed ${
                         msg.role === 'user'
                           ? 'bg-indigo-600/90 text-white ml-auto rounded-tr-none'
-                          : 'bg-black/40 border border-white/5 text-gray-300 mr-auto rounded-tl-none font-sans'
+                          : 'bg-white border border-gray-200 text-gray-900 mr-auto rounded-tl-none font-sans shadow-sm'
                       }`}
                     >
                       {msg.text}
@@ -257,14 +257,14 @@ const RulesChatbot = () => {
                   )}
                 </div>
 
-                <form onSubmit={handleSendChat} className="border-t border-white/5 pt-3 mt-3 flex gap-2">
+                <form onSubmit={handleSendChat} className="border-t border-gray-150 pt-3 mt-3 flex gap-2">
                   <input
                     type="text"
                     required
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Ask about draft limits, 11s, timers..."
-                    className="flex-1 px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 text-white text-xs focus:outline-none focus:border-indigo-500"
+                    className="flex-1 px-3 py-1.5 rounded-lg bg-white border border-gray-300 text-gray-900 text-xs focus:outline-none focus:border-indigo-500"
                   />
                   <button
                     type="submit"
@@ -285,14 +285,14 @@ const RulesChatbot = () => {
                   <p className="text-center text-xs text-gray-500">No league rules configured yet.</p>
                 ) : (
                   rules.map((rule) => (
-                    <div key={rule._id} className="p-3.5 rounded-xl border border-white/5 bg-black/30 space-y-1.5 relative group">
-                      <h4 className="font-bold text-white text-xs font-outfit">{rule.title}</h4>
-                      <p className="text-[11px] text-gray-400 leading-relaxed font-sans">{rule.content}</p>
+                    <div key={rule._id} className="p-3.5 rounded-xl border border-gray-200 bg-white space-y-1.5 relative group shadow-sm">
+                      <h4 className="font-bold text-gray-950 text-xs font-outfit">{rule.title}</h4>
+                      <p className="text-[11px] text-gray-600 leading-relaxed font-sans">{rule.content}</p>
                       
                       {user.role === 'Admin' && (
                         <button
                           onClick={() => handleDeleteRule(rule._id)}
-                          className="absolute top-2 right-2 p-1.5 rounded bg-red-500/10 hover:bg-red-500/20 text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="absolute top-2 right-2 p-1.5 rounded bg-red-500/10 hover:bg-red-500/20 text-red-650 opacity-0 group-hover:opacity-100 transition-opacity"
                           title="Delete Rule"
                         >
                           <Trash2 className="w-3 h-3" />
@@ -307,29 +307,29 @@ const RulesChatbot = () => {
             {/* Panel 3: Admin Management Rules Add */}
             {activeTab === 'admin' && user.role === 'Admin' && (
               <form onSubmit={handleAddRule} className="space-y-4">
-                <h3 className="text-xs font-bold text-indigo-400 uppercase tracking-wider">Publish League Rule</h3>
+                <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider">Publish League Rule</h3>
                 
                 <div>
-                  <label className="block text-[10px] text-gray-400 mb-1 font-semibold uppercase">Rule Title</label>
+                  <label className="block text-[10px] text-gray-500 mb-1 font-semibold uppercase">Rule Title</label>
                   <input
                     type="text"
                     required
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
                     placeholder="e.g. Budget Enforcements / Match Duration"
-                    className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white focus:outline-none text-xs"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none text-xs"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] text-gray-400 mb-1 font-semibold uppercase">Rule Content</label>
+                  <label className="block text-[10px] text-gray-500 mb-1 font-semibold uppercase">Rule Content</label>
                   <textarea
                     required
                     rows={4}
                     value={newContent}
                     onChange={(e) => setNewContent(e.target.value)}
                     placeholder="Provide detailed description of the draft rule logic..."
-                    className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white focus:outline-none text-xs resize-none"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none text-xs resize-none"
                   />
                 </div>
 
