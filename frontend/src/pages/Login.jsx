@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Mail, Lock, AlertTriangle } from 'lucide-react';
-import loginBanner from '../auction.png';
+import loginBanner from '../live.png';
 import './Login.css';
 
 const Login = () => {
@@ -58,7 +58,7 @@ const Login = () => {
             <img 
               src={loginBanner} 
               alt="Online Auction Illustration" 
-              className="max-w-full max-h-[300px] md:max-h-[400px] object-contain pointer-events-none drop-shadow-md rounded-lg"
+              className="max-w-full max-h-[500px] md:max-h-[400px] object-contain pointer-events-none drop-shadow-10px rounded-lg"
             />
           </div>
         </div>
