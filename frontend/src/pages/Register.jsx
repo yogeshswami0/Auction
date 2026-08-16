@@ -69,18 +69,18 @@ const Register = () => {
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center py-6 relative">
-      <div className="w-full max-w-lg p-8 glass-card rounded-2xl hover-glow relative z-10 border border-white/10">
+      <div className="w-full max-w-lg p-8 glass-card rounded-2xl hover-glow relative z-10 border border-black/5">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-extrabold tracking-tight text-white mb-2 font-outfit">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 mb-2 font-outfit">
             Create Account
           </h1>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-600 font-medium">
             Join the elite AUCTION-PRO franchise league
           </p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-3">
+          <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-600 text-sm flex items-center gap-3">
             <AlertTriangle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
@@ -89,35 +89,35 @@ const Register = () => {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                 Username
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-3 w-4 h-4 text-gray-500" />
+                <User className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                 <input
                   type="text"
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="e.g. skipper99"
-                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-all text-sm"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 transition-all text-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 w-4 h-4 text-gray-500" />
+                <Mail className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@franchise.com"
-                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-all text-sm"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 transition-all text-sm"
                 />
               </div>
             </div>
@@ -125,36 +125,36 @@ const Register = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-500" />
+                <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-all text-sm"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 transition-all text-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                 System Role
               </label>
               <div className="relative">
-                <Shield className="absolute left-3 top-3 w-4 h-4 text-gray-500" />
+                <Shield className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500 transition-all text-sm appearance-none cursor-pointer"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-indigo-500 transition-all text-sm appearance-none cursor-pointer"
                 >
-                  <option value="Player" className="bg-brand-dark">Player (Athlete)</option>
-                  <option value="Owner" className="bg-brand-dark">Owner (Franchise Boss)</option>
-                  <option value="Admin" className="bg-brand-dark">Admin (League Commissioner)</option>
+                  <option value="Player" className="bg-white text-gray-900">Player (Athlete)</option>
+                  <option value="Owner" className="bg-white text-gray-900">Owner (Franchise Boss)</option>
+                  <option value="Admin" className="bg-white text-gray-900">Admin (League Commissioner)</option>
                 </select>
               </div>
             </div>
@@ -163,13 +163,13 @@ const Register = () => {
           {/* Franchise Parameters (Owners Only) */}
           {role === 'Owner' && (
             <div className="p-4 rounded-xl border border-indigo-500/20 bg-indigo-500/5 space-y-4 animate-fadeIn">
-              <h3 className="text-sm font-bold text-indigo-400 border-b border-indigo-500/20 pb-2 flex items-center gap-2">
+              <h3 className="text-sm font-bold text-indigo-600 border-b border-indigo-500/20 pb-2 flex items-center gap-2">
                 <Flag className="w-4 h-4" /> Franchise Setup Details
               </h3>
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                     Franchise Name
                   </label>
                   <input
@@ -178,12 +178,12 @@ const Register = () => {
                     value={teamName}
                     onChange={(e) => setTeamName(e.target.value)}
                     placeholder="e.g. Mumbai Kings"
-                    className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-all text-sm"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 transition-all text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                     Crest / Logo URL
                   </label>
                   <input
@@ -191,30 +191,30 @@ const Register = () => {
                     value={teamLogo}
                     onChange={(e) => setTeamLogo(e.target.value)}
                     placeholder="Optional image url"
-                    className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-all text-sm"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 transition-all text-sm"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1">
                     <Target className="w-3 h-3" /> Brand Vibe
                   </label>
                   <select
                     value={vibe}
                     onChange={(e) => setVibe(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white focus:outline-none focus:border-indigo-500 transition-all text-sm appearance-none cursor-pointer"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-indigo-500 transition-all text-sm appearance-none cursor-pointer"
                   >
-                    <option value="Aggressive" className="bg-brand-dark text-red-400">Aggressive</option>
-                    <option value="Fearless" className="bg-brand-dark text-amber-400">Fearless</option>
-                    <option value="Tactical" className="bg-brand-dark text-emerald-400">Tactical</option>
-                    <option value="Calculated" className="bg-brand-dark text-indigo-400">Calculated</option>
+                    <option value="Aggressive" className="bg-white text-red-600">Aggressive</option>
+                    <option value="Fearless" className="bg-white text-amber-600">Fearless</option>
+                    <option value="Tactical" className="bg-white text-emerald-600">Tactical</option>
+                    <option value="Calculated" className="bg-white text-indigo-600">Calculated</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1">
                     <Palette className="w-3 h-3" /> Theme Color
                   </label>
                   <div className="flex gap-2 items-center">
@@ -222,9 +222,9 @@ const Register = () => {
                       type="color"
                       value={primaryColor}
                       onChange={(e) => setPrimaryColor(e.target.value)}
-                      className="w-8 h-8 rounded cursor-pointer border border-white/20 bg-transparent"
+                      className="w-8 h-8 rounded cursor-pointer border border-gray-300 bg-transparent"
                     />
-                    <span className="text-xs text-gray-400 uppercase font-mono">{primaryColor}</span>
+                    <span className="text-xs text-gray-500 uppercase font-mono">{primaryColor}</span>
                   </div>
                 </div>
               </div>
@@ -240,9 +240,9 @@ const Register = () => {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-400">
+        <p className="mt-6 text-center text-sm text-gray-500">
           Already registered?{' '}
-          <Link to="/login" className="text-indigo-400 hover:underline font-semibold">
+          <Link to="/login" className="text-indigo-600 hover:underline font-semibold">
             Sign In
           </Link>
         </p>
