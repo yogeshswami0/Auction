@@ -10,8 +10,8 @@ const animationStyles = `
     100% { background-position-y: 80px; }
   }
   @keyframes stadium-pulse {
-    0%, 100% { opacity: 0.08; transform: perspective(800px) rotateX(70deg) translateZ(-50px) scale(1); }
-    50% { opacity: 0.18; transform: perspective(800px) rotateX(70deg) translateZ(-50px) scale(1.01); }
+    0%, 100% { opacity: 0.05; transform: perspective(800px) rotateX(70deg) translateZ(-50px) scale(1); }
+    50% { opacity: 0.12; transform: perspective(800px) rotateX(70deg) translateZ(-50px) scale(1.01); }
   }
 `;
 
@@ -51,47 +51,47 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center relative overflow-hidden py-10 px-4 bg-black">
+    <div className="min-h-[80vh] flex items-center justify-center relative overflow-hidden py-10 px-4 bg-neutral-50">
       {/* Inject custom CSS keyframes */}
       <style>{animationStyles}</style>
 
       {/* ========================================================================= */}
-      {/* MONOCHROME 3D SPORTS BACKGROUND                                            */}
+      {/* MONOCHROME LIGHT 3D SPORTS BACKGROUND                                     */}
       {/* ========================================================================= */}
       
-      {/* Glowing Monochrome 3D Stadium Field Wireframe at the bottom */}
+      {/* Glowing Monochrome 3D Stadium Field Wireframe at the bottom (Dark lines on light bg) */}
       <div 
         className="absolute bottom-[-120px] left-1/2 -translate-x-1/2 w-[180vw] h-[55vh] origin-bottom opacity-10 pointer-events-none select-none z-0"
         style={{
           transform: "perspective(800px) rotateX(75deg) translateZ(0)",
-          background: "linear-gradient(to top, rgba(255, 255, 255, 0.15), transparent)",
+          background: "linear-gradient(to top, rgba(0, 0, 0, 0.05), transparent)",
           backgroundImage: `
-            linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px)
+            linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px)
           `,
           backgroundSize: "80px 80px",
           animation: "pitch-scroll 16s linear infinite",
-          borderTop: "1px solid rgba(255, 255, 255, 0.25)",
-          boxShadow: "0px -20px 80px rgba(255, 255, 255, 0.05)"
+          borderTop: "1px solid rgba(0, 0, 0, 0.08)",
+          boxShadow: "0px -20px 80px rgba(0, 0, 0, 0.01)"
         }}
       />
 
       {/* Stadium Boundary Ropes / Glow Ring in Monochrome */}
       <div 
-        className="absolute bottom-[15vh] left-1/2 -translate-x-1/2 w-[85vw] h-[35vh] border border-dashed border-white/10 rounded-full pointer-events-none z-0"
+        className="absolute bottom-[15vh] left-1/2 -translate-x-1/2 w-[85vw] h-[35vh] border border-dashed border-neutral-900/5 rounded-full pointer-events-none z-0"
         style={{
           transform: "perspective(800px) rotateX(70deg) translateZ(-50px)",
-          boxShadow: "0 0 50px rgba(255, 255, 255, 0.05) inset",
+          boxShadow: "0 0 50px rgba(0, 0, 0, 0.02) inset",
           animation: "stadium-pulse 8s ease-in-out infinite"
         }}
       />
 
-      {/* Floating Monochrome Sports Icons */}
+      {/* Floating Monochrome Sports Icons (Dark gray low-opacity on light bg) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden">
         
         {/* Trophy */}
         <motion.div
-          className="absolute text-white/5 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.05)]"
+          className="absolute text-neutral-900/5 filter drop-shadow-[0_0_8px_rgba(0,0,0,0.02)]"
           style={{ left: '8%', top: '15%' }}
           animate={{
             y: [0, -20, 0],
@@ -109,7 +109,7 @@ const Login = () => {
 
         {/* Target */}
         <motion.div
-          className="absolute text-white/5 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.05)]"
+          className="absolute text-neutral-900/5 filter drop-shadow-[0_0_8px_rgba(0,0,0,0.02)]"
           style={{ right: '12%', top: '22%' }}
           animate={{
             y: [0, -15, 0],
@@ -127,7 +127,7 @@ const Login = () => {
 
         {/* Flame */}
         <motion.div
-          className="absolute text-white/5"
+          className="absolute text-neutral-900/5"
           style={{ left: '12%', bottom: '15%' }}
           animate={{
             y: [0, -18, 0],
@@ -145,7 +145,7 @@ const Login = () => {
 
         {/* Award */}
         <motion.div
-          className="absolute text-white/5"
+          className="absolute text-neutral-900/5"
           style={{ right: '10%', bottom: '20%' }}
           animate={{
             y: [0, -25, 0],
@@ -162,7 +162,7 @@ const Login = () => {
 
         {/* Activity */}
         <motion.div
-          className="absolute text-white/5"
+          className="absolute text-neutral-900/5"
           style={{ left: '3%', top: '50%' }}
           animate={{
             y: [0, -12, 0],
@@ -179,7 +179,7 @@ const Login = () => {
 
         {/* Shield */}
         <motion.div
-          className="absolute text-white/5"
+          className="absolute text-neutral-900/5"
           style={{ right: '5%', top: '48%' }}
           animate={{
             y: [0, -18, 0],
@@ -197,58 +197,58 @@ const Login = () => {
       </div>
 
       {/* ========================================================================= */}
-      {/* SIMPLE BLACK AND WHITE LOGIN CARD                                         */}
+      {/* SIMPLE LIGHT SCHEME LOGIN CARD                                            */}
       {/* ========================================================================= */}
       <div 
-        className="w-full max-w-md bg-neutral-950/80 backdrop-blur-md rounded-xl border border-neutral-800 p-8 relative z-10 transition-all hover:border-neutral-700 duration-300"
+        className="w-full max-w-md bg-white rounded-xl border border-neutral-200 p-8 relative z-10 shadow-xl transition-all hover:border-neutral-300 duration-300"
       >
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold tracking-tight text-white mb-2 font-outfit uppercase">
+          <h1 className="text-2xl font-bold tracking-tight text-neutral-950 mb-2 font-outfit uppercase">
             Sign In
           </h1>
-          <p className="text-xs text-neutral-500 uppercase tracking-wider">
+          <p className="text-xs text-neutral-400 uppercase tracking-wider font-semibold">
             AUCTION-PRO draft console
           </p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 rounded bg-neutral-900 border border-neutral-800 text-neutral-300 text-xs flex items-center gap-3">
-            <AlertTriangle className="w-4 h-4 text-white shrink-0" />
+          <div className="mb-6 p-4 rounded bg-red-50 border border-red-100 text-red-700 text-xs flex items-center gap-3">
+            <AlertTriangle className="w-4 h-4 text-red-500 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">
+            <label className="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2">
               Email or Username
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-3 w-4 h-4 text-neutral-600" />
+              <Mail className="absolute left-3 top-3.5 w-4 h-4 text-neutral-400" />
               <input
                 type="text"
                 required
                 value={emailOrUsername}
                 onChange={(e) => setEmailOrUsername(e.target.value)}
                 placeholder="enter email or username"
-                className="w-full pl-10 pr-4 py-2.5 rounded bg-black border border-neutral-800 text-white placeholder-neutral-700 focus:outline-none focus:border-white transition-all text-xs"
+                className="w-full pl-10 pr-4 py-3 rounded bg-neutral-50 border border-neutral-200 text-neutral-950 placeholder-neutral-400 focus:outline-none focus:border-neutral-950 transition-all text-xs"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">
+            <label className="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2">
               Password
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-3 w-4 h-4 text-neutral-600" />
+              <Lock className="absolute left-3 top-3.5 w-4 h-4 text-neutral-400" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-2.5 rounded bg-black border border-neutral-800 text-white placeholder-neutral-700 focus:outline-none focus:border-white transition-all text-xs"
+                className="w-full pl-10 pr-4 py-3 rounded bg-neutral-50 border border-neutral-200 text-neutral-950 placeholder-neutral-400 focus:outline-none focus:border-neutral-950 transition-all text-xs"
               />
             </div>
           </div>
@@ -256,7 +256,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded bg-white hover:bg-neutral-200 text-black font-bold uppercase transition-all duration-200 text-xs tracking-wider"
+            className="w-full py-3 rounded bg-black hover:bg-neutral-800 text-white font-bold uppercase transition-all duration-200 text-xs tracking-wider"
           >
             {loading ? 'Authenticating...' : 'Sign In'}
           </button>
@@ -264,7 +264,7 @@ const Login = () => {
 
         <p className="mt-8 text-center text-xs text-neutral-500 uppercase tracking-wider">
           Don't have an account?{' '}
-          <Link to="/register" className="text-white hover:underline font-bold ml-1">
+          <Link to="/register" className="text-black hover:underline font-bold ml-1">
             Register
           </Link>
         </p>
