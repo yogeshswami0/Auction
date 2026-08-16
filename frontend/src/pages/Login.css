@@ -1,87 +1,35 @@
-.login-page-container {
-  @apply min-h-[80vh] flex items-center justify-center relative py-10 px-4;
+/* Custom CSS animations and styles for the Login Page */
+
+@keyframes pitch-scroll {
+  0% { background-position-y: 0px; }
+  100% { background-position-y: 80px; }
 }
 
-.login-card {
-  @apply w-full max-w-4xl glass-card rounded-2xl border border-white/10 overflow-hidden flex flex-col md:flex-row relative z-10 shadow-2xl;
+@keyframes stadium-pulse {
+  0%, 100% { 
+    opacity: 0.15; 
+    transform: perspective(800px) rotateX(70deg) translateZ(-50px) scale(1); 
+  }
+  50% { 
+    opacity: 0.35; 
+    transform: perspective(800px) rotateX(70deg) translateZ(-50px) scale(1.02); 
+  }
 }
 
-.login-left-panel {
-  @apply w-full md:w-1/2 bg-[#3B82F6] flex flex-col justify-center items-center p-8 relative overflow-hidden min-h-[320px] md:min-h-0 select-none border-b md:border-b-0 md:border-r border-white/5;
+.login-pitch-wireframe {
+  transform: perspective(800px) rotateX(75deg) translateZ(0);
+  background: linear-gradient(to top, rgba(99, 102, 241, 0.25), transparent);
+  background-image: 
+    linear-gradient(rgba(99, 102, 241, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.12) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: pitch-scroll 12s linear infinite;
+  border-top: 2px solid rgba(99, 102, 241, 0.4);
+  box-shadow: 0px -25px 80px rgba(99, 102, 241, 0.2);
 }
 
-.login-blue-glow-1 {
-  @apply absolute inset-0 bg-gradient-to-tr from-blue-600 to-indigo-500 opacity-60 z-0;
-}
-
-.login-blue-ring-1 {
-  @apply absolute w-80 h-80 rounded-full border border-white/10 opacity-30 top-[-20%] right-[-20%] z-0;
-}
-
-.login-blue-ring-2 {
-  @apply absolute w-64 h-64 rounded-full border border-white/10 opacity-20 bottom-[-15%] left-[-15%] z-0;
-}
-
-.login-image-container {
-  @apply w-full h-full flex justify-center items-center relative z-10;
-}
-
-.login-image {
-  @apply w-full h-full object-contain max-h-[280px] md:max-h-none pointer-events-none drop-shadow-lg;
-}
-
-.login-right-panel {
-  @apply w-full md:w-1/2 p-8 sm:p-10 flex flex-col justify-center bg-black/45 relative z-10;
-}
-
-.login-title-container {
-  @apply text-center mb-8;
-}
-
-.login-title {
-  @apply text-3xl font-extrabold tracking-tight text-white mb-2;
-}
-
-.login-subtitle {
-  @apply text-sm text-gray-400 font-medium;
-}
-
-.login-error-container {
-  @apply mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-3;
-}
-
-.login-form {
-  @apply space-y-6;
-}
-
-.login-field {
-  @apply space-y-2;
-}
-
-.login-label {
-  @apply block text-xs font-semibold text-gray-400 uppercase tracking-wider;
-}
-
-.login-input-wrapper {
-  @apply relative;
-}
-
-.login-input-icon {
-  @apply absolute left-3 top-3.5 w-5 h-5 text-gray-500;
-}
-
-.login-input {
-  @apply w-full pl-10 pr-4 py-2.5 rounded-lg bg-black/45 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-all text-sm;
-}
-
-.login-button {
-  @apply w-full py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all hover:scale-[1.02] flex items-center justify-center gap-2 text-sm shadow-lg shadow-indigo-500/20 disabled:opacity-50 disabled:cursor-not-allowed;
-}
-
-.login-footer-text {
-  @apply mt-8 text-center text-sm text-gray-400;
-}
-
-.login-link {
-  @apply text-indigo-400 hover:underline font-semibold;
+.login-stadium-boundary {
+  transform: perspective(800px) rotateX(70deg) translateZ(-50px);
+  box-shadow: 0 0 50px rgba(99, 102, 241, 0.15) inset, 0 0 30px rgba(99, 102, 241, 0.1);
+  animation: stadium-pulse 6s ease-in-out infinite;
 }

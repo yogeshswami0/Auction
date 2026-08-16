@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import LoginUI from './LoginUI';
+import { Mail, Lock, AlertTriangle } from 'lucide-react';
+import loginBanner from '../auction_login_banner.png';
+import './Login.css';
 
 const Login = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
@@ -39,15 +41,100 @@ const Login = () => {
   };
 
   return (
-    <LoginUI
-      emailOrUsername={emailOrUsername}
-      setEmailOrUsername={setEmailOrUsername}
-      password={password}
-      setPassword={setPassword}
-      error={error}
-      loading={loading}
-      handleSubmit={handleSubmit}
-    />
+    <div className="min-h-[80vh] flex items-center justify-center relative py-10 px-4">
+      
+      {/* Split-screen login card (static, no 3D animations/tilt) */}
+      <div className="w-full max-w-4xl glass-card rounded-2xl border border-white/10 overflow-hidden flex flex-col md:flex-row relative z-10 shadow-2xl">
+        
+        {/* Left Side: Royal Blue Vector Panel containing the static illustration */}
+        <div className="w-full md:w-1/2 bg-[#3B82F6] flex flex-col justify-center items-center p-8 relative overflow-hidden min-h-[320px] md:min-h-0 select-none border-b md:border-b-0 md:border-r border-white/5">
+          {/* Subtle background glow rings in blue panel */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-indigo-500 opacity-60 z-0" />
+          <div className="absolute w-80 h-80 rounded-full border border-white/10 opacity-30 top-[-20%] right-[-20%] z-0" />
+          <div className="absolute w-64 h-64 rounded-full border border-white/10 opacity-20 bottom-[-15%] left-[-15%] z-0" />
+
+          {/* Static illustration banner */}
+          <div className="w-full h-full flex justify-center items-center relative z-10">
+            <img 
+              src={loginBanner} 
+              alt="Online Auction Illustration" 
+              className="w-full h-full object-contain max-h-[280px] md:max-h-none pointer-events-none drop-shadow-lg"
+            />
+          </div>
+        </div>
+
+        {/* Right Side: Clean Dark Authentication Console Form */}
+        <div className="w-full md:w-1/2 p-8 sm:p-10 flex flex-col justify-center bg-black/45 relative z-10">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-extrabold tracking-tight text-white mb-2 font-outfit">
+              Welcome Back
+            </h1>
+            <p className="text-sm text-gray-400 font-medium">
+              Sign in to access your AUCTION-PRO draft console
+            </p>
+          </div>
+
+          {error && (
+            <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-3">
+              <AlertTriangle className="w-4 h-4 shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                Email or Username
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-3.5 w-5 h-5 text-gray-500" />
+                <input
+                  type="text"
+                  required
+                  value={emailOrUsername}
+                  onChange={(e) => setEmailOrUsername(e.target.value)}
+                  placeholder="enter email or username"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-black/45 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-all text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-3.5 w-5 h-5 text-gray-500" />
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-black/45 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-all text-sm"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all hover:scale-[1.02] flex items-center justify-center gap-2 text-sm shadow-lg shadow-indigo-500/20"
+            >
+              {loading ? 'Authenticating...' : 'Sign In'}
+            </button>
+          </form>
+
+          <p className="mt-8 text-center text-sm text-gray-400">
+            Don't have an account?{' '}
+            <Link to="/register" className="text-indigo-400 hover:underline font-semibold">
+              Register Franchise
+            </Link>
+          </p>
+        </div>
+
+      </div>
+    </div>
   );
 };
 
