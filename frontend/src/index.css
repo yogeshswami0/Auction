@@ -4,27 +4,27 @@
 
 @layer base {
   body {
-    background-color: #f3f4f6;
-    color: #171717;
+    background-color: #fafafa;
+    color: #0a0a0a;
     font-family: 'Inter', 'Outfit', sans-serif;
   }
 }
 
 @layer utilities {
-  /* Premium Glassmorphism - Dark Card on Light Screen Background */
+  /* Premium Glassmorphism - High-Contrast Dark Card on Light Screen Background */
   .glass-card {
-    background: rgba(15, 23, 42, 0.95) !important;
+    background: rgba(10, 10, 10, 0.96) !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.25) !important;
+    border: 1px solid #262626 !important;
+    box-shadow: 0 10px 45px -12px rgba(0, 0, 0, 0.25) !important;
   }
 
   .glass-nav {
-    background: rgba(15, 23, 42, 0.95) !important;
+    background: rgba(10, 10, 10, 0.98) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-bottom: 1px solid #262626 !important;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15) !important;
   }
 
@@ -35,8 +35,8 @@
 
   .hover-glow:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3) !important;
-    border-color: rgba(99, 102, 241, 0.3) !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    border-color: #525252 !important;
   }
 
   /* Dynamic 3D Perspective and Transitions */
@@ -158,6 +158,94 @@
   .animate-flare {
     animation: critical-flare 0.5s ease-in-out infinite;
   }
+}
+
+/* Custom styling overrides to apply the high-contrast monochrome design */
+
+/* Ensure all text inside the dark glass cards and nav remains light */
+.glass-card,
+.glass-card *,
+.glass-nav,
+.glass-nav * {
+  color: #fafafa;
+}
+
+/* Subtitle and secondary texts in dark cards */
+.glass-card .text-gray-400,
+.glass-card p.text-gray-400,
+.glass-card span.text-gray-400,
+.glass-card .text-gray-300,
+.glass-nav .text-gray-400 {
+  color: #a3a3a3 !important;
+}
+
+/* Nav links hover and active states inside dark nav */
+.glass-nav a {
+  color: #a3a3a3 !important;
+}
+.glass-nav a:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important;
+}
+.glass-nav a[class*="bg-indigo-500\/20"] {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+.glass-nav a[class*="bg-indigo-500\/20"] * {
+  color: #ffffff !important;
+}
+
+/* Form input elements styling inside dark cards */
+.glass-card input,
+.glass-card select,
+.glass-card textarea {
+  background-color: #171717 !important;
+  border: 1px solid #262626 !important;
+  color: #ffffff !important;
+}
+.glass-card input::placeholder,
+.glass-card textarea::placeholder {
+  color: #525252 !important;
+}
+
+/* Primary buttons override (Solid white button with black text) */
+.glass-card button[type="submit"],
+.glass-card button.bg-indigo-600,
+.glass-card button[class*="bg-indigo-600"] {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1) !important;
+}
+.glass-card button[type="submit"]:hover,
+.glass-card button.bg-indigo-600:hover,
+.glass-card button[class*="bg-indigo-600"]:hover {
+  background-color: #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+  transform: scale(1.02);
+}
+.glass-card button[type="submit"] *,
+.glass-card button.bg-indigo-600 *,
+.glass-card button[class*="bg-indigo-600"] * {
+  color: #000000 !important;
+}
+
+/* Secondary links in dark cards (e.g. Register Franchise) */
+.glass-card a[class*="text-indigo-400"],
+.glass-card a.text-indigo-400 {
+  color: #ffffff !important;
+  text-decoration: underline;
+}
+.glass-card a[class*="text-indigo-400"]:hover,
+.glass-card a.text-indigo-400:hover {
+  color: #e5e5e5 !important;
+}
+
+/* Budget numbers or special highlights */
+.glass-nav .text-emerald-400 {
+  color: #10b981 !important;
 }
 
 
