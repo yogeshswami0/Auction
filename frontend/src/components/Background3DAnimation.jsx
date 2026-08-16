@@ -157,8 +157,8 @@ const Background3DAnimation = () => {
           ctx.stroke();
 
           // Franchise label
-          ctx.font = `${Math.max(8, Math.round(9 * item.scale))}px 'Outfit', sans-serif`;
-          ctx.fillStyle = `rgba(212, 212, 212, ${0.75 * item.scale})`;
+          ctx.font = `bold ${Math.max(9, Math.round(10 * item.scale))}px 'Outfit', sans-serif`;
+          ctx.fillStyle = `rgba(255, 255, 255, 0.95)`;
           ctx.textAlign = 'center';
           ctx.fillText(item.name, item.x, item.y - item.radius - 5);
         } else if (item.type === 'bid') {
@@ -188,7 +188,7 @@ const Background3DAnimation = () => {
       ctx.stroke();
 
       // Label inside central player node
-      ctx.font = 'bold 8px "Outfit", sans-serif';
+      ctx.font = 'bold 9px "Outfit", sans-serif';
       ctx.fillStyle = '#ffffff';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
