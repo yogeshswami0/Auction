@@ -5,27 +5,27 @@
 @layer base {
   body {
     background-color: #000000;
-    color: #fafafa;
+    color: #171717;
     font-family: 'Inter', 'Outfit', sans-serif;
   }
 }
 
 @layer utilities {
-  /* Premium Glassmorphism */
+  /* Premium Glassmorphism - Light Card on Dark 3D Background */
   .glass-card {
-    background: rgba(10, 10, 10, 0.60) !important;
+    background: rgba(255, 255, 255, 0.55) !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3) !important;
   }
 
   .glass-nav {
-    background: rgba(10, 10, 10, 0.70) !important;
+    background: rgba(255, 255, 255, 0.70) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2) !important;
   }
 
   /* Micro-animations */
@@ -35,8 +35,8 @@
 
   .hover-glow:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15) !important;
-    border-color: rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
   }
 
   /* Dynamic 3D Perspective and Transitions */
@@ -160,53 +160,82 @@
   }
 }
 
-/* Custom styling overrides to apply the high-contrast dark theme design */
+/* Custom styling overrides to apply the light glass theme design on dark background */
 
-/* Ensure all text inside the dark glass cards and nav remains light */
+/* Ensure text inside the light glass cards and nav defaults to dark */
 .glass-card,
-.glass-card *,
-.glass-nav,
-.glass-nav * {
-  color: #fafafa;
+.glass-card p,
+.glass-card label,
+.glass-card span:not([class*="bg-"]):not(button *),
+.glass-card .text-white:not(button):not(button *) {
+  color: #171717 !important;
 }
 
-/* Subtitle and secondary texts in dark cards */
+/* Glass card header structures */
+.glass-card h1,
+.glass-card h2,
+.glass-card h3,
+.glass-card h4,
+.glass-card h5,
+.glass-card h6 {
+  color: #0a0a0a !important;
+}
+
+/* Subtitle and secondary texts in light cards */
 .glass-card .text-gray-400,
 .glass-card p.text-gray-400,
 .glass-card span.text-gray-400,
-.glass-card .text-gray-300,
-.glass-nav .text-gray-400 {
-  color: #a3a3a3 !important;
+.glass-card .text-gray-300 {
+  color: #737373 !important;
 }
 
-/* Nav links hover and active states inside dark nav */
+/* Ensure active/inactive nav links styling on light navigation bar */
 .glass-nav a {
-  color: #a3a3a3 !important;
+  color: #525252 !important;
 }
 .glass-nav a:hover {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  color: #ffffff !important;
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  color: #171717 !important;
 }
 .glass-nav a[class*="bg-indigo-500\/20"] {
-  background-color: rgba(255, 255, 255, 0.08) !important;
-  color: #ffffff !important;
-  border-color: rgba(255, 255, 255, 0.15) !important;
+  background-color: rgba(99, 102, 241, 0.12) !important;
+  color: #4f46e5 !important;
+  border-color: rgba(99, 102, 241, 0.25) !important;
 }
 .glass-nav a[class*="bg-indigo-500\/20"] * {
-  color: #ffffff !important;
+  color: #4f46e5 !important;
+}
+.glass-nav p,
+.glass-nav span {
+  color: #262626 !important;
+}
+.glass-nav .text-white {
+  color: #171717 !important;
+}
+.glass-nav .text-gray-400 {
+  color: #737373 !important;
 }
 
-/* Form input elements styling inside dark cards */
+/* Form input elements styling inside light cards */
 .glass-card input,
 .glass-card select,
 .glass-card textarea {
-  background-color: #171717 !important;
-  border: 1px solid #262626 !important;
-  color: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 1px solid #d4d4d4 !important;
+  color: #171717 !important;
 }
 .glass-card input::placeholder,
 .glass-card textarea::placeholder {
-  color: #525252 !important;
+  color: #a3a3a3 !important;
+}
+
+/* Ensure primary buttons remain styled with white text */
+button,
+button *,
+button.bg-indigo-600,
+button[class*="bg-indigo-600"],
+button[class*="bg-indigo-600"] * {
+  color: #ffffff !important;
 }
 
 /* Ensure alert badges and status overlays remain readable */
@@ -216,7 +245,7 @@ span[class*="bg-amber-"] {
   color: #ffffff !important;
 }
 
-/* Alert notifications and banners reset for dark mode */
+/* Alert notifications and banners reset for light mode */
 div[class*="bg-red-500/10"],
 div[class*="bg-red-500\/10"] {
   background-color: rgba(239, 68, 68, 0.08) !important;

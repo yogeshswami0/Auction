@@ -13,7 +13,7 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="glass-nav sticky top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between">
+    <nav className="glass-nav fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between">
       {/* BRANDING CONTRACT: Completely static, non-clickable textual logo */}
       <div className="flex items-center gap-2">
         <span className="text-2xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 select-none cursor-default font-outfit">
