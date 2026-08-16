@@ -47,9 +47,8 @@ const Background3DAnimation = () => {
 
     // Main render loop
     const render = () => {
-      // Clear with clean off-white background
-      ctx.fillStyle = '#fafafa';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Clear with transparent background to inherit parent bg
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw subtle grid overlay in light gray
       ctx.strokeStyle = 'rgba(163, 163, 163, 0.07)';
@@ -142,7 +141,7 @@ const Background3DAnimation = () => {
         if (item.type === 'franchise') {
           // Draw faint orbit connection line
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(163, 163, 163, ${0.12 * item.scale})`;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${0.08 * item.scale})`;
           ctx.lineWidth = 1 * item.scale;
           ctx.moveTo(pProj.x, pProj.y);
           ctx.lineTo(item.x, item.y);
@@ -151,24 +150,24 @@ const Background3DAnimation = () => {
           // Franchise node
           ctx.beginPath();
           ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(115, 115, 115, ${0.8 * item.scale})`;
+          ctx.fillStyle = `rgba(255, 255, 255, ${0.15 * item.scale})`;
           ctx.fill();
-          ctx.strokeStyle = `rgba(255, 255, 255, ${0.9 * item.scale})`;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${0.35 * item.scale})`;
           ctx.lineWidth = 1.5 * item.scale;
           ctx.stroke();
 
           // Franchise label
           ctx.font = `${Math.max(8, Math.round(9 * item.scale))}px 'Outfit', sans-serif`;
-          ctx.fillStyle = `rgba(115, 115, 115, ${0.85 * item.scale})`;
+          ctx.fillStyle = `rgba(212, 212, 212, ${0.75 * item.scale})`;
           ctx.textAlign = 'center';
           ctx.fillText(item.name, item.x, item.y - item.radius - 5);
         } else if (item.type === 'bid') {
           // Flying bid dot
           ctx.beginPath();
           ctx.arc(item.x, item.y, 3 * item.scale, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(82, 82, 82, ${0.9 * item.scale})`;
+          ctx.fillStyle = `rgba(255, 255, 255, ${0.8 * item.scale})`;
           ctx.fill();
-          ctx.strokeStyle = `rgba(255, 255, 255, ${0.8 * item.scale})`;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${0.7 * item.scale})`;
           ctx.lineWidth = 0.8 * item.scale;
           ctx.stroke();
         }
@@ -177,12 +176,12 @@ const Background3DAnimation = () => {
       // Draw central bid target (Player Node) at Z = 0
       ctx.beginPath();
       ctx.arc(pProj.x, pProj.y, playerRadius * 1.4, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(163, 163, 163, 0.08)';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
       ctx.fill();
 
       ctx.beginPath();
       ctx.arc(pProj.x, pProj.y, playerRadius, 0, Math.PI * 2);
-      ctx.fillStyle = '#525252';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
       ctx.fill();
       ctx.strokeStyle = '#ffffff';
       ctx.lineWidth = 2.5;
@@ -190,7 +189,7 @@ const Background3DAnimation = () => {
 
       // Label inside central player node
       ctx.font = 'bold 8px "Outfit", sans-serif';
-      ctx.fillStyle = '#fafafa';
+      ctx.fillStyle = '#ffffff';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText('DRAFT TARGET', pProj.x, pProj.y);

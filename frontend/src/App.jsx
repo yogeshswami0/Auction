@@ -20,7 +20,7 @@ function App() {
     <Router>
       <AuthProvider>
         <SocketProvider>
-          <div className="relative min-h-screen text-gray-900 flex flex-col bg-[#fafafa]">
+          <div className="relative min-h-screen text-white flex flex-col bg-[#000000]">
             {/* Background live bidding 3D projected animation */}
             <Background3DAnimation />
 

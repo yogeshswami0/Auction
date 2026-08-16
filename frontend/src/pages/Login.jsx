@@ -46,12 +46,12 @@ const Login = () => {
       {/* Split-screen login card (static, no 3D animations/tilt) */}
       <div className="w-full max-w-4xl glass-card rounded-2xl border border-white/10 overflow-hidden flex flex-col md:flex-row relative z-10 shadow-2xl">
         
-        {/* Left Side: Royal Blue Vector Panel containing the static illustration */}
-        <div className="w-full md:w-1/2 bg-[#3B82F6] flex flex-col justify-center items-center p-8 relative overflow-hidden min-h-[320px] md:min-h-0 select-none border-b md:border-b-0 md:border-r border-white/5">
-          {/* Subtle background glow rings in blue panel */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-indigo-500 opacity-60 z-0" />
-          <div className="absolute w-80 h-80 rounded-full border border-white/10 opacity-30 top-[-20%] right-[-20%] z-0" />
-          <div className="absolute w-64 h-64 rounded-full border border-white/10 opacity-20 bottom-[-15%] left-[-15%] z-0" />
+        {/* Left Side: Clean Light Vector Panel containing the static illustration */}
+        <div className="w-full md:w-1/2 bg-[#ffffff] flex flex-col justify-center items-center p-8 relative overflow-hidden min-h-[320px] md:min-h-0 select-none border-b md:border-b-0 md:border-r border-black/5">
+          {/* Subtle background glow rings in light panel */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-gray-50 to-[#ffffff] opacity-100 z-0" />
+          <div className="absolute w-80 h-80 rounded-full border border-gray-200/40 opacity-30 top-[-20%] right-[-20%] z-0" />
+          <div className="absolute w-64 h-64 rounded-full border border-gray-200/30 opacity-20 bottom-[-15%] left-[-15%] z-0" />
 
           {/* Static illustration banner */}
           <div className="w-full h-full flex justify-center items-center relative z-10">
