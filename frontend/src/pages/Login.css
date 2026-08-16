@@ -18,9 +18,9 @@
 
 .login-pitch-wireframe {
   transform: perspective(800px) rotateX(75deg) translateZ(0);
-  background: linear-gradient(to top, rgba(99, 102, 241, 0.25), transparent);
+  background: linear-gradient(to top, rgba(245, 245, 245, 0.25), transparent);
   background-image: 
-    linear-gradient(rgba(99, 102, 241, 0.12) 1px, transparent 1px),
+    linear-gradient(rgba(188, 189, 197, 0.12) 1px, transparent 1px),
     linear-gradient(90deg, rgba(99, 102, 241, 0.12) 1px, transparent 1px);
   background-size: 80px 80px;
   animation: pitch-scroll 12s linear infinite;

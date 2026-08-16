@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Trophy, HelpCircle, ShieldAlert, Cpu, Swords, Star } from 'lucide-react';
+import './TournamentSimulation.css';
 
 const TournamentSimulation = () => {
   const { token } = useAuth();

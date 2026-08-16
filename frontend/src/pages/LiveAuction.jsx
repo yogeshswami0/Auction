@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import CountdownOverlay from '../components/CountdownOverlay';
 import { Play, RotateCcw, Megaphone, HelpCircle, ShieldAlert, Cpu, ArrowUpRight } from 'lucide-react';
+import './LiveAuction.css';
 
 const LiveAuction = () => {
   const { user, token, refreshUser } = useAuth();

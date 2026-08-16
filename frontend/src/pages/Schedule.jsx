@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Calendar, Clock, Plus, Trash2, ShieldAlert, CheckCircle, Info } from 'lucide-react';
+import './Schedule.css';
 
 const Schedule = () => {
   const { user, token } = useAuth();
