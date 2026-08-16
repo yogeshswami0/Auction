@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Mail, Lock, AlertTriangle } from 'lucide-react';
-import loginBanner from '../auction_login_banner.png';
+import loginBanner from '../auction.png';
 import './Login.css';
 
 const Login = () => {
@@ -54,11 +54,11 @@ const Login = () => {
           <div className="absolute w-64 h-64 rounded-full border border-gray-200/30 opacity-20 bottom-[-15%] left-[-15%] z-0" />
 
           {/* Static illustration banner */}
-          <div className="w-full h-full flex justify-center items-center relative z-10">
+          <div className="w-full h-full flex justify-center items-center relative z-10 p-4">
             <img 
               src={loginBanner} 
               alt="Online Auction Illustration" 
-              className="w-full h-full object-contain max-h-[280px] md:max-h-none pointer-events-none drop-shadow-lg"
+              className="max-w-full max-h-[300px] md:max-h-[400px] object-contain pointer-events-none drop-shadow-md rounded-lg"
             />
           </div>
         </div>
