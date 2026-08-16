@@ -18,18 +18,18 @@
 
 .login-pitch-wireframe {
   transform: perspective(800px) rotateX(75deg) translateZ(0);
-  background: linear-gradient(to top, rgba(245, 245, 245, 0.25), transparent);
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.12), transparent);
   background-image: 
-    linear-gradient(rgba(188, 189, 197, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.12) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 80px 80px;
   animation: pitch-scroll 12s linear infinite;
-  border-top: 2px solid rgba(99, 102, 241, 0.4);
-  box-shadow: 0px -25px 80px rgba(99, 102, 241, 0.2);
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0px -25px 80px rgba(255, 255, 255, 0.08);
 }
 
 .login-stadium-boundary {
   transform: perspective(800px) rotateX(70deg) translateZ(-50px);
-  box-shadow: 0 0 50px rgba(99, 102, 241, 0.15) inset, 0 0 30px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.08) inset, 0 0 30px rgba(255, 255, 255, 0.04);
   animation: stadium-pulse 6s ease-in-out infinite;
 }
