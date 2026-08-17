@@ -254,43 +254,6 @@ io.on('connection', (socket) => {
   socket.on('place_bid', placeBidHandler);
   socket.on('BID_PLACED', placeBidHandler);
 
-  // 4. admin_start_timer / START_COUNTDOWN: Runs synchronized fast 3-2-1 tick countdown
-  const startTimerHandler = () => {
-    try {
-      if (roomState.status !== 'live') {
-        socket.emit('error', { message: 'Cannot start closing countdown. Room is not live.' });
-        return;
-      }
-
-      stopAuctionTimers();
-      roomState.status = 'counting_down';
-
-      let closingTick = 3;
-      io.emit('timer_tick', { closingTick }); // emit 3
-      io.emit('START_COUNTDOWN', { closingTick }); // duplicate match for frontend
-
-      roomState.closingCountdown = setInterval(async () => {
-        closingTick--;
-        if (closingTick >= 0) {
-          io.emit('timer_tick', { closingTick });
-          io.emit('START_COUNTDOWN', { closingTick }); // duplicate tick emit
-        } else {
-          clearInterval(roomState.closingCountdown);
-          roomState.closingCountdown = null;
-          roomState.status = 'ready_to_close';
-          io.emit('timer_closed'); // notify frontend countdown finished
-        }
-      }, 1000);
-
-      console.log('Admin triggered fast closing 3-2-1 countdown.');
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  socket.on('admin_start_timer', startTimerHandler);
-  socket.on('START_COUNTDOWN', startTimerHandler);
-
   // 5. admin_mark_sold / PLAYER_SOLD: Complete transaction and transfer player to owner squad
   const markSoldHandler = async () => {
     console.log('--- ADMIN DECLARE SOLD TRIGGERED ---');
@@ -433,6 +396,47 @@ io.on('connection', (socket) => {
 
   socket.on('admin_mark_sold', markSoldHandler);
   socket.on('PLAYER_SOLD', markSoldHandler);
+
+  // 4. admin_start_timer / START_COUNTDOWN: Runs synchronized fast 3-2-1 tick countdown
+  const startTimerHandler = () => {
+    try {
+      if (roomState.status !== 'live') {
+        socket.emit('error', { message: 'Cannot start closing countdown. Room is not live.' });
+        return;
+      }
+
+      stopAuctionTimers();
+      roomState.status = 'counting_down';
+
+      let closingTick = 3;
+      io.emit('timer_tick', { closingTick }); // emit 3
+      io.emit('START_COUNTDOWN', { closingTick }); // duplicate match for frontend
+
+      roomState.closingCountdown = setInterval(async () => {
+        closingTick--;
+        if (closingTick >= 0) {
+          io.emit('timer_tick', { closingTick });
+          io.emit('START_COUNTDOWN', { closingTick }); // duplicate tick emit
+        } else {
+          clearInterval(roomState.closingCountdown);
+          roomState.closingCountdown = null;
+          roomState.status = 'ready_to_close';
+          io.emit('timer_closed'); // notify frontend countdown finished
+          
+          // Automatically sell the player to highest bidder when closing timer expires
+          console.log('Closing countdown expired. Executing automated transaction...');
+          await markSoldHandler();
+        }
+      }, 1000);
+
+      console.log('Admin triggered fast closing 3-2-1 countdown.');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  socket.on('admin_start_timer', startTimerHandler);
+  socket.on('START_COUNTDOWN', startTimerHandler);
 
   // Admin resets the auction room to idle
   socket.on('admin_reset_room', () => {
