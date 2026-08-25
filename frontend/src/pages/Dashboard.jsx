@@ -393,29 +393,15 @@ const Dashboard = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append('image', file);
-    
-    try {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        body: formData,
-      });
-
-      if (response.ok) {
-        const imagePath = await response.text();
-        setNewPlayerPhoto(imagePath);
-      } else {
-        const data = await response.json();
-        alert(data.message || 'Image upload failed');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Error uploading image');
-    }
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setNewPlayerPhoto(reader.result);
+    };
+    reader.onerror = (error) => {
+      console.error('Error converting image to Base64:', error);
+      alert('Failed to process image. Please try again.');
+    };
   };
 
   const squadByPosition = {
