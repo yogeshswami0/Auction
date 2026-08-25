@@ -230,6 +230,7 @@ const LiveAuction = () => {
                   <p className="text-xs text-gray-500">Base Price</p>
                   <p className="text-xl font-bold font-mono text-emerald-400">₹{(activePlayer.basePrice / 10000000).toFixed(2)} Cr</p>
                 </div>
+                </div>
               </div>
 
               {/* Player Stats Details */}
