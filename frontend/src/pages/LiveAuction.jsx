@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import CountdownOverlay from '../components/CountdownOverlay';
-import { Play, RotateCcw, Megaphone, HelpCircle, ShieldAlert, Cpu, ArrowUpRight } from 'lucide-react';
+import { Play, RotateCcw, Megaphone, HelpCircle, ShieldAlert, Cpu, ArrowUpRight, User } from 'lucide-react';
 import './LiveAuction.css';
 
 const LiveAuction = () => {
@@ -196,26 +196,35 @@ const LiveAuction = () => {
 
           {activePlayer ? (
             <div className="space-y-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <div className="flex flex-wrap gap-2 items-center">
-                    <span className="px-2.5 py-1 rounded text-xs bg-indigo-500/10 text-indigo-300 font-bold border border-indigo-500/20">
-                      Draft Assets: Position - {activePlayer.position}
-                    </span>
-                    <span className={`px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border ${
-                      activePlayer.status === 'Live'
-                        ? 'bg-red-500/10 text-red-400 border-red-500/20 animate-pulse'
-                        : activePlayer.status === 'Sold'
-                          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                          : activePlayer.status === 'Unsold'
-                            ? 'bg-gray-500/10 text-gray-400 border-gray-500/20'
-                            : 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
-                    }`}>
-                      Status: {activePlayer.status}
-                    </span>
-                  </div>
-                  <h2 className="text-4xl font-black font-outfit text-white mt-3">{activePlayer.name}</h2>
+              <div className="flex flex-col md:flex-row gap-6 items-start">
+                <div className="w-32 h-32 rounded-2xl border border-white/10 bg-black/40 overflow-hidden shrink-0 flex items-center justify-center relative shadow-lg">
+                  {activePlayer.photo ? (
+                    <img src={activePlayer.photo} alt={activePlayer.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <User className="w-16 h-16 text-indigo-400/50" />
+                  )}
                 </div>
+                
+                <div className="flex-1 w-full flex justify-between items-start">
+                  <div>
+                    <div className="flex flex-wrap gap-2 items-center">
+                      <span className="px-2.5 py-1 rounded text-xs bg-indigo-500/10 text-indigo-300 font-bold border border-indigo-500/20">
+                        Draft Assets: Position - {activePlayer.position}
+                      </span>
+                      <span className={`px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border ${
+                        activePlayer.status === 'Live'
+                          ? 'bg-red-500/10 text-red-400 border-red-500/20 animate-pulse'
+                          : activePlayer.status === 'Sold'
+                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                            : activePlayer.status === 'Unsold'
+                              ? 'bg-gray-500/10 text-gray-400 border-gray-500/20'
+                              : 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
+                      }`}>
+                        Status: {activePlayer.status}
+                      </span>
+                    </div>
+                    <h2 className="text-4xl font-black font-outfit text-white mt-3">{activePlayer.name}</h2>
+                  </div>
                 
                 <div className="text-right">
                   <p className="text-xs text-gray-500">Base Price</p>
