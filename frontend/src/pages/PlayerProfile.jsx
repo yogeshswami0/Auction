@@ -6,11 +6,21 @@ import './PlayerProfile.css';
 
 const PlayerProfile = () => {
   const { id } = useParams();
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  // Editing state
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState({
+    name: '',
+    position: 'Batsman',
+    basePrice: '',
+    photo: '',
+  });
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     const fetchPlayerProfile = async () => {
@@ -23,8 +33,14 @@ const PlayerProfile = () => {
           throw new Error('Profile not found or access denied.');
         }
 
-        const data = await response.ok ? await response.json() : null;
+        const data = await response.json();
         setPlayer(data);
+        setEditForm({
+          name: data.name,
+          position: data.position,
+          basePrice: data.basePrice,
+          photo: data.photo || '',
+        });
       } catch (err) {
         setError(err.message);
       } finally {
@@ -34,6 +50,69 @@ const PlayerProfile = () => {
 
     fetchPlayerProfile();
   }, [id, token]);
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+    
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        const imagePath = await response.text();
+        setEditForm(prev => ({ ...prev, photo: imagePath }));
+      } else {
+        const data = await response.json();
+        alert(data.message || 'Image upload failed');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error uploading image');
+    }
+  };
+
+  const submitEdit = async (e) => {
+    e.preventDefault();
+    setUpdating(true);
+    try {
+      const response = await fetch(`/api/players/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(editForm),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setPlayer(data.player);
+        setIsEditing(false);
+      } else {
+        const data = await response.json();
+        alert(data.message || 'Failed to update profile');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Network error updating profile');
+    } finally {
+      setUpdating(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -104,8 +183,96 @@ const PlayerProfile = () => {
               </div>
             )}
           </div>
+
+          {/* Edit Profile Button */}
+          {user && (user.id === player.user?._id || user._id === player.user?._id || user.role === 'Admin') && !isEditing && (
+            <div className="mt-4">
+              <button
+                onClick={() => setIsEditing(true)}
+                className="px-4 py-2 bg-indigo-600/20 hover:bg-indigo-600/40 border border-indigo-500/40 text-indigo-300 rounded text-xs font-bold transition-all"
+              >
+                Edit Profile
+              </button>
+            </div>
+          )}
         </div>
       </div>
+
+      {isEditing && (
+        <div className="p-6 rounded-2xl glass-card border border-indigo-500/30 bg-indigo-500/5 animate-fadeIn">
+          <h2 className="text-xl font-bold font-outfit text-white mb-4">Edit Profile</h2>
+          <form onSubmit={submitEdit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs text-gray-400 mb-1.5 font-medium">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={editForm.name}
+                  onChange={handleEditChange}
+                  required
+                  className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white text-sm focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-xs text-gray-400 mb-1.5 font-medium">Position</label>
+                <select
+                  name="position"
+                  value={editForm.position}
+                  onChange={handleEditChange}
+                  className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white text-sm focus:outline-none"
+                >
+                  <option value="Batsman">Batsman</option>
+                  <option value="Bowler">Bowler</option>
+                  <option value="All-rounder">All-rounder</option>
+                  <option value="Wicket-keeper">Wicket-keeper</option>
+                </select>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs text-gray-400 mb-1.5 font-medium">Base Price (₹)</label>
+                <input
+                  type="number"
+                  name="basePrice"
+                  value={editForm.basePrice}
+                  onChange={handleEditChange}
+                  required
+                  className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white text-sm focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-xs text-gray-400 mb-1.5 font-medium">Update Photo</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={uploadFileHandler}
+                  className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white text-sm focus:outline-none"
+                />
+                {editForm.photo && <p className="text-xs text-emerald-400 mt-1">Image updated (Preview above on save)</p>}
+              </div>
+            </div>
+
+            <div className="md:col-span-2 flex justify-end gap-3 mt-2">
+              <button
+                type="button"
+                onClick={() => setIsEditing(false)}
+                className="px-4 py-2 bg-gray-600/50 hover:bg-gray-600 border border-gray-500/50 text-white rounded text-sm font-bold transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={updating}
+                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-sm font-bold transition-all"
+              >
+                {updating ? 'Saving...' : 'Save Changes'}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Numerical Performance Statistics Card */}

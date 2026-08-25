@@ -150,4 +150,40 @@ router.put('/:id/restart', auth, isAdmin, async (req, res) => {
   }
 });
 
+// PUT /api/players/:id - Update player profile
+router.put('/:id', auth, async (req, res) => {
+  try {
+    const player = await Player.findById(req.params.id);
+    if (!player) {
+      return res.status(404).json({ message: 'Player not found.' });
+    }
+
+    // Check if the user is the owner of the profile or an Admin
+    if (player.user.toString() !== req.user.id && req.user.role !== 'Admin') {
+      return res.status(403).json({ message: 'Not authorized to update this profile.' });
+    }
+
+    const { name, position, basePrice, photo, stats } = req.body;
+
+    if (name) player.name = name;
+    if (position) player.position = position;
+    if (basePrice) player.basePrice = basePrice;
+    if (photo !== undefined) player.photo = photo;
+    if (stats) {
+      player.stats = {
+        matches: stats.matches ?? player.stats.matches,
+        runs: stats.runs ?? player.stats.runs,
+        wickets: stats.wickets ?? player.stats.wickets,
+        rating: stats.rating ?? player.stats.rating,
+      };
+    }
+
+    await player.save();
+    res.json({ message: 'Player profile updated successfully.', player });
+  } catch (error) {
+    console.error('Error updating player profile:', error);
+    res.status(500).json({ message: 'Server error updating player profile.' });
+  }
+});
+
 export default router;

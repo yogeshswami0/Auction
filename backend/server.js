@@ -14,6 +14,13 @@ import ruleRoutes from './routes/ruleRoutes.js';
 
 import User from './models/User.js';
 import Player from './models/Player.js';
+import uploadRoutes from './routes/uploadRoutes.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 import { getPressReleaseHeadlines } from './services/aiService.js';
 
 dotenv.config();
@@ -61,6 +68,10 @@ app.use('/api/matches', matchRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/rules', ruleRoutes);
+app.use('/api/upload', uploadRoutes);
+
+// Make uploads folder static
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // Socket.io Server Setup
 const io = new Server(server, {

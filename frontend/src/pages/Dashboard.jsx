@@ -389,6 +389,35 @@ const Dashboard = () => {
     }
   };
 
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+    
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        const imagePath = await response.text();
+        setNewPlayerPhoto(imagePath);
+      } else {
+        const data = await response.json();
+        alert(data.message || 'Image upload failed');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error uploading image');
+    }
+  };
+
   const squadByPosition = {
     'Batsman': [],
     'Bowler': [],
@@ -546,14 +575,14 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-400 mb-1.5 font-medium">Photo URL</label>
+                  <label className="block text-xs text-gray-400 mb-1.5 font-medium">Photo</label>
                   <input
-                    type="text"
-                    value={newPlayerPhoto}
-                    onChange={(e) => setNewPlayerPhoto(e.target.value)}
-                    placeholder="https://example.com/photo.jpg"
+                    type="file"
+                    accept="image/*"
+                    onChange={uploadFileHandler}
                     className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white text-sm focus:outline-none focus:border-indigo-500"
                   />
+                  {newPlayerPhoto && <p className="text-xs text-emerald-400 mt-1">Image uploaded successfully</p>}
                 </div>
               </div>
 
@@ -878,6 +907,17 @@ const Dashboard = () => {
                           />
                         </div>
                       </div>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs text-gray-400 mb-1.5 font-medium">Profile Photo</label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={uploadFileHandler}
+                        className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-white text-sm focus:outline-none"
+                      />
+                      {newPlayerPhoto && <p className="text-xs text-emerald-400 mt-1">Image uploaded successfully</p>}
                     </div>
 
                     <div className="flex flex-col justify-end">
